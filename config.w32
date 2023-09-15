@@ -1,0 +1,7 @@
+ARG_ENABLE('observe_zendmm', 'observe_zendmm support', 'no');
+
+if (PHP_OBSERVE_ZENDMM != 'no') {
+	AC_DEFINE('HAVE_OBSERVE_ZENDMM', 1, 'observe_zendmm support enabled');
+
+	EXTENSION('observe_zendmm', 'observe_zendmm.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+}
