@@ -86,7 +86,7 @@ void observe_zendmm_custom_handlers_init(void)
 	}
 	OZ_G(original_heap) = zend_mm_get_heap();
 	if (zend_mm_is_custom_heap(OZ_G(original_heap))) {
-		zend_mm_get_custom_handlers(
+		zend_mm_get_custom_handlers_ex(
 			OZ_G(original_heap),
 			&OZ_G(custom_malloc),
 			&OZ_G(custom_free),
@@ -97,7 +97,7 @@ void observe_zendmm_custom_handlers_init(void)
 	}
 	printf("Prev handlers at %p, %p, %p, %p, %p\n", OZ_G(custom_malloc), OZ_G(custom_free), OZ_G(custom_realloc), OZ_G(custom_gc), OZ_G(custom_shutdown));
 	OZ_G(observed_heap) = zend_mm_startup();
-	zend_mm_set_custom_handlers(
+	zend_mm_set_custom_handlers_ex(
 		OZ_G(observed_heap),
 		observe_malloc,
 		observe_free,
@@ -115,7 +115,7 @@ void observe_zendmm_custom_handlers_shutdown(void)
 		return;
 	}
 	zend_mm_set_heap(OZ_G(original_heap));
-	zend_mm_set_custom_handlers(
+	zend_mm_set_custom_handlers_ex(
 		OZ_G(observed_heap),
 		NULL,
 		NULL,
